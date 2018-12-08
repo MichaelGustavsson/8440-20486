@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="container">
+    <div class="row col-md-3">
+        <br />
+        <h2>Simple order form</h2>
+        <div class="panel panel-default" style="background-color: lightcyan">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="customers">Customer name:</label>
+                    <select id="customers" class="form-control">
+                        <option>Company 1</option>
+                        <option>Company 2</option>
+                        <option>Company 3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="products">Product name:</label>
+                    <select id="products" class="form-control">
+                        <option>Product 1</option>
+                        <option>Product 2</option>
+                        <option>Product 3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" class="form-control" value="1" />
+                </div>
+                <button id="addOrder" class="btn btn-primary">Add order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        //Create the connection to the server.
+        var connection = $.hubConnection();
+        //Create the hubproxy.
+        var hub = connection.createHubProxy('OrderStatusHub');
+
+        //Activate logging. You can see the output in the developer tools console window.
+        connection.logging = true;
+
+        //Start the communication and connect the addOrder method in the server hub.
+        connection.start().done(function () {
+            $("#addOrder").click(function () {
+                var order = {
+                    customerName: $("#customers option:selected").text(),
+                    productName: $("#products option:selected").text(),
+                    quantity: $("#quantity").val()
+                };
+                //Call the method AddOrder on the server by invoking it and sending the order object.
+                hub.invoke('addOrder', order);
+            });
+        });
+    })
+</script>
+
