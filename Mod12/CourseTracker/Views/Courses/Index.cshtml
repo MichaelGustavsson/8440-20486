@@ -1,0 +1,30 @@
+﻿@model IEnumerable<CourseTrack.Models.Course>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<!--style="width: 18rem;"-->
+
+<div class="row">
+    @foreach (var course in Model)
+    {
+        <div class="card col-md-5">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => course.CourseNumber) @Html.DisplayFor(modelItem => course.Title)</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Instructor @Html.DisplayFor(modelItem => course.Instructor.Name)</h6>
+                <p class="card-text">@Html.DisplayFor(modelItem => course.Description)</p>
+                
+                @Html.ActionLink("Edit", "Edit", new { id = course.CourseId } , new { @class="btn btn-outline-primary" })
+                @Html.ActionLink("Details", "Details", new { id = course.CourseId }, new { @class = "btn btn-outline-primary" })
+                @Html.ActionLink("Delete", "Delete", new { id = course.CourseId }, new { @class = "btn btn-outline-danger" })
+            </div>
+        </div>
+    }
+</div>
