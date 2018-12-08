@@ -1,0 +1,4 @@
+﻿
+$.when(
+    $("#courseCalender").datepicker()
+);

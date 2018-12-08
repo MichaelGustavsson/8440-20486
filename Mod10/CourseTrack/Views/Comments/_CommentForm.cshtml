@@ -1,0 +1,19 @@
+﻿@model CourseTrack.Models.Comment
+
+@Html.HiddenFor(model => model.CourseId)
+
+<div class="form-horizontal">
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add comment" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+
